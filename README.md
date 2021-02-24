@@ -33,6 +33,7 @@ pl.tight_layout()
 pl.savefig('interp-var-2d.png')
 pl.close('all')
 ```
+![interp-var-2d.png](./interp-var-2d.png "interp-var-2d.png")
 
 ```python
 # in 3d
@@ -48,6 +49,7 @@ pl.tight_layout()
 pl.savefig('interp-var-3d.png')
 pl.close('all')
 ```
+![interp-var-3d.png](./interp-var-3d.png "interp-var-3d.png")
 
 ```python
 # voxel bounds
@@ -79,6 +81,7 @@ pl.tight_layout()
 pl.savefig('voxelized-var-nn.png')
 pl.close('all')
 ```
+![voxelized-var-nn.png](./voxelized-var-nn.png "voxelized-var-nn.png")
 
 ```python
 # it would be more honest to take a ball neighborhood,
@@ -102,6 +105,7 @@ pl.tight_layout()
 pl.savefig('voxelized-var-gki.png')
 pl.close('all')
 ```
+![voxelized-var-gki.png](./voxelized-var-gki.png "voxelized-var-gki.png")
 
 ```python
 # what are the differences
