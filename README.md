@@ -30,8 +30,11 @@ ax.plot(pts[:,2], var, 'o', mfc = 'none')
 ax.set_xlabel('Elevation')
 ax.set_ylabel('Interpolation variable')
 pl.tight_layout()
-pl.show()
+pl.savefig('interp-var-2d.png')
+pl.close('all')
+```
 
+```python
 # in 3d
 fg = pl.figure(1, (8, 6))
 ax = fg.add_subplot(111, projection = '3d')
@@ -42,8 +45,11 @@ ax.set_xlabel('UTM X [m]')
 ax.set_ylabel('UTM Y [m]')
 ax.set_zlabel('Elevation [m]')
 pl.tight_layout()
-pl.show()
+pl.savefig('interp-var-3d.png')
+pl.close('all')
+```
 
+```python
 # voxel bounds
 vxb = np.linspace(0, shape[0], int(shape[0]/voxel_width)+1)
 vyb = np.linspace(0, shape[1], int(shape[1]/voxel_width)+1)
@@ -70,8 +76,11 @@ ax.set_xlabel('UTM X [m]')
 ax.set_ylabel('UTM Y [m]')
 ax.set_zlabel('Elevation [m]')
 pl.tight_layout()
-pl.show()
+pl.savefig('voxelized-var-nn.png')
+pl.close('all')
+```
 
+```python
 # it would be more honest to take a ball neighborhood,
 # but I'll just take the 20 nn for speed and simplicity
 # problem: nn might not form a sphere
@@ -90,8 +99,11 @@ ax.set_xlabel('UTM X [m]')
 ax.set_ylabel('UTM Y [m]')
 ax.set_zlabel('Elevation [m]')
 pl.tight_layout()
-pl.show()
+pl.savefig('voxelized-var-gki.png')
+pl.close('all')
+```
 
+```python
 # what are the differences
 fg = pl.figure(1, (8, 6))
 ax = fg.add_subplot(111)
@@ -100,5 +112,7 @@ ax.plot([0,1], [0,1], 'r-')
 ax.set_xlabel('Nearest neighbor interp')
 ax.set_ylabel('Gaussian kernel interp')
 pl.tight_layout()
-pl.show()
+pl.savefig('voxelized-var-nn-gki-diff.png')
+pl.close('all')
 ```
+![voxelized-var-nn-gki-diff.png](./voxelized-var-nn-gki-diff.png "voxelized-var-nn-gki-diff.png")
