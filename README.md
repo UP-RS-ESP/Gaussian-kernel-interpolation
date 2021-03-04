@@ -16,12 +16,12 @@ def gaussian_weights(r, sigma):
     return np.exp(-r*r/sigma/sigma/2)
 
 # point cloud data
-pts = np.c_[shape[0] * np.random.random(num),
+pts = np.c_[shape[2] * np.random.random(num),
             shape[1] * np.random.random(num),
-            shape[2] * np.random.random(num)]
+            shape[0] * np.random.random(num)]
 
 # interpolation variable
-var = np.cos(pts[:,2]/shape[2]*np.pi)**2
+var = np.cos(pts[:,2]/shape[0]*np.pi)**2
 
 # get a visual impression
 fg = pl.figure(1, (8, 6))
@@ -53,14 +53,14 @@ pl.close('all')
 
 ```python
 # voxel bounds
-vxb = np.linspace(0, shape[0], int(shape[0]/voxel_width)+1)
+vxb = np.linspace(0, shape[2], int(shape[2]/voxel_width)+1)
 vyb = np.linspace(0, shape[1], int(shape[1]/voxel_width)+1)
-vzb = np.linspace(0, shape[2], int(shape[2]/voxel_width)+1)
+vzb = np.linspace(0, shape[0], int(shape[0]/voxel_width)+1)
 
 # voxel center coordinates
-vzc, vyc, vxc = np.meshgrid((vzb[1:]+vzb[:-1])/2,
+vyc, vzc, vxc = np.meshgrid((vyb[1:]+vyb[:-1])/2,
                             (vzb[1:]+vzb[:-1])/2,
-                            (vzb[1:]+vzb[:-1])/2)
+                            (vxb[1:]+vxb[:-1])/2)
 vxl = np.c_[vxc.ravel(), vyc.ravel(), vzc.ravel()]
 
 # KD-Tree

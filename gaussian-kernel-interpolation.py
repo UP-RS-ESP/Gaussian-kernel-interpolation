@@ -12,12 +12,12 @@ def gaussian_weights(r, sigma):
     return np.exp(-r*r/sigma/sigma/2)
 
 # point cloud data
-pts = np.c_[shape[0] * np.random.random(num),
+pts = np.c_[shape[2] * np.random.random(num),
             shape[1] * np.random.random(num),
-            shape[2] * np.random.random(num)]
+            shape[0] * np.random.random(num)]
 
 # interpolation variable
-var = np.cos(pts[:,2]/shape[2]*np.pi)**2
+var = np.cos(pts[:,2]/shape[0]*np.pi)**2
 
 # get a visual impression
 fg = pl.figure(1, (8, 6))
@@ -26,7 +26,8 @@ ax.plot(pts[:,2], var, 'o', mfc = 'none')
 ax.set_xlabel('Elevation')
 ax.set_ylabel('Interpolation variable')
 pl.tight_layout()
-pl.show()
+pl.savefig('interp-var-2d.png')
+pl.close('all')
 
 # in 3d
 fg = pl.figure(1, (8, 6))
@@ -38,17 +39,18 @@ ax.set_xlabel('UTM X [m]')
 ax.set_ylabel('UTM Y [m]')
 ax.set_zlabel('Elevation [m]')
 pl.tight_layout()
-pl.show()
+pl.savefig('interp-var-3d.png')
+pl.close('all')
 
 # voxel bounds
-vxb = np.linspace(0, shape[0], int(shape[0]/voxel_width)+1)
+vxb = np.linspace(0, shape[2], int(shape[2]/voxel_width)+1)
 vyb = np.linspace(0, shape[1], int(shape[1]/voxel_width)+1)
-vzb = np.linspace(0, shape[2], int(shape[2]/voxel_width)+1)
+vzb = np.linspace(0, shape[0], int(shape[0]/voxel_width)+1)
 
 # voxel center coordinates
-vzc, vyc, vxc = np.meshgrid((vzb[1:]+vzb[:-1])/2,
+vyc, vzc, vxc = np.meshgrid((vyb[1:]+vyb[:-1])/2,
                             (vzb[1:]+vzb[:-1])/2,
-                            (vzb[1:]+vzb[:-1])/2)
+                            (vxb[1:]+vxb[:-1])/2)
 vxl = np.c_[vxc.ravel(), vyc.ravel(), vzc.ravel()]
 
 # KD-Tree
@@ -66,7 +68,8 @@ ax.set_xlabel('UTM X [m]')
 ax.set_ylabel('UTM Y [m]')
 ax.set_zlabel('Elevation [m]')
 pl.tight_layout()
-pl.show()
+pl.savefig('voxelized-var-nn.png')
+pl.close('all')
 
 # it would be more honest to take a ball neighborhood,
 # but I'll just take the 20 nn for speed and simplicity
@@ -86,7 +89,8 @@ ax.set_xlabel('UTM X [m]')
 ax.set_ylabel('UTM Y [m]')
 ax.set_zlabel('Elevation [m]')
 pl.tight_layout()
-pl.show()
+pl.savefig('voxelized-var-gki.png')
+pl.close('all')
 
 # what are the differences
 fg = pl.figure(1, (8, 6))
@@ -96,4 +100,5 @@ ax.plot([0,1], [0,1], 'r-')
 ax.set_xlabel('Nearest neighbor interp')
 ax.set_ylabel('Gaussian kernel interp')
 pl.tight_layout()
-pl.show()
+pl.savefig('voxelized-var-nn-gki-diff.png')
+pl.close('all')
